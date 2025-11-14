@@ -1,6 +1,9 @@
 #include <iostream>
+#include "calculator/calculator.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    Calculator calc;
+    std::cout << "Hello from Yahtzee Solver!" << std::endl;
+    std::cout << "2 + 3 = " << calc.add(2, 3) << std::endl;
     return 0;
 }

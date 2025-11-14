@@ -2,24 +2,31 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main, master ]
   pull_request:
-    branches:
-      - main
+    branches: [ main, master ]
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-22.04
-
+    runs-on: windows-latest
+    
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up C++ environment
+      uses: actions/checkout@v4
+      
+    - name: Install CMake
+      uses: jwlawson/actions-setup-cmake@v1
+      with:
+        cmake-version: '3.28.1'
+        
+    - name: Configure CMake
       run: |
-        sudo apt-get update
-        sudo apt-get install -y make g++ libgtest-dev
-
+        cmake -B build -G "MinGW Makefiles"
+        
+    - name: Build project
+      run: |
+        cmake --build build
+        
     - name: Run tests
-      run: make test
+      run: |
+        .\build\bin\runTests.exe
