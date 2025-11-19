@@ -1,9 +1,8 @@
-# Test executable
-add_executable(runTests
-    test_main.cpp
-    test_calculator_add.cpp
-    test_calculator_subtract.cpp
+file(GLOB TEST_SOURCES 
+    "*.cpp"
 )
+
+add_executable(runTests ${TEST_SOURCES})
 
 target_link_libraries(runTests PRIVATE
     yahtzee_lib
